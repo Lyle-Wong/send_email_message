@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='send_email_message',
-    version='0.1.1',
+    version='0.1.2',
     description='Very simple and unicode friendly way to send email message from Python code.',
     long_description='''
 Usage::

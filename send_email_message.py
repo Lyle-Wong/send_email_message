@@ -19,7 +19,7 @@ Usage:
 
     send_email_message(to='denisr@denisr.com', subject='Example News', text='Please see http://example.com/', **email_config)
 
-send_email_message version 0.1.1
+send_email_message version 0.1.2
 Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>
 MIT License, see http://opensource.org/licenses/MIT
 '''
@@ -48,12 +48,13 @@ def send_email_message(to, subject='', text='', encoding='utf-8', host='localhos
     if password:
         smtp.login(user, password)
 
+    user = encoded(user, encoding)
     if from_name:
-        user = '{from_name} <{user}>'.format(from_name=from_name, user=user)
+        user = '{from_name} <{user}>'.format(from_name=encoded(from_name, encoding), user=user)
 
     msg = MIMEText(encoded(text, encoding), 'plain', encoding)
     msg['From'] = user
-    msg['To'] = to
+    msg['To'] = encoded(to, encoding)
     msg['Subject'] = Header(encoded(subject, encoding), encoding)
 
     smtp.sendmail(user, to, msg.as_string())
