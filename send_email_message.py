@@ -19,7 +19,7 @@ Usage:
 
     send_email_message(to='denisr@denisr.com', subject='Example News', text='Please see http://example.com/', **email_config)
 
-send_email_message version 0.1.0
+send_email_message version 0.1.1
 Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>
 MIT License, see http://opensource.org/licenses/MIT
 '''
@@ -29,6 +29,11 @@ MIT License, see http://opensource.org/licenses/MIT
 from email.header import Header
 from email.mime.text import MIMEText
 import smtplib
+
+#### encoded
+
+def encoded(s, encoding):
+    return s.encode(encoding) if isinstance(s, unicode) else s
 
 #### send_email
 
@@ -46,10 +51,10 @@ def send_email_message(to, subject='', text='', encoding='utf-8', host='localhos
     if from_name:
         user = '{from_name} <{user}>'.format(from_name=from_name, user=user)
 
-    msg = MIMEText(text.encode(encoding), 'plain', encoding)
+    msg = MIMEText(encoded(text, encoding), 'plain', encoding)
     msg['From'] = user
     msg['To'] = to
-    msg['Subject'] = Header(subject.encode(encoding), encoding)
+    msg['Subject'] = Header(encoded(subject, encoding), encoding)
 
     smtp.sendmail(user, to, msg.as_string())
 

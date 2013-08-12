@@ -20,6 +20,6 @@ Usage:
 
     send_email_message(to='denisr@denisr.com', subject='Example News', text='Please see http://example.com/', **email_config)
 
-send_email_message version 0.1.0  
+send_email_message version 0.1.1  
 Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>  
 MIT License, see http://opensource.org/licenses/MIT
