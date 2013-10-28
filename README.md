@@ -18,8 +18,14 @@ Usage:
         # Default: encoding='utf-8'
     )
 
-    send_email_message(to='denisr@denisr.com', subject='Example News', text='Please see http://example.com/', **email_config)
+    send_email_message(
+        to='denisr@denisr.com',
+        subject='Example News',
+        text='Please see http://example.com/',
+        html='<html><body>Please see <a href="http://example.com/">example.com</a></body></html>',
+        **email_config
+    )
 
-send_email_message version 0.1.2  
+send_email_message version 0.1.3  
 Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>  
 MIT License, see http://opensource.org/licenses/MIT

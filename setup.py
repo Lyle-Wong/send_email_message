@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='send_email_message',
-    version='0.1.2',
+    version='0.1.3',
     description='Very simple and unicode friendly way to send email message from Python code.',
     long_description='''
 Usage::
@@ -20,7 +20,13 @@ Usage::
         # Default: encoding='utf-8'
     )
 
-    send_email_message(to='denisr@denisr.com', subject='Example News', text='Please see http://example.com/', **email_config)
+    send_email_message(
+        to='denisr@denisr.com',
+        subject='Example News',
+        text='Please see http://example.com/',
+        html='<html><body>Please see <a href="http://example.com/">example.com</a></body></html>',
+        **email_config
+    )
 
 ''',
     url='https://github.com/denis-ryzhkov/send_email_message',

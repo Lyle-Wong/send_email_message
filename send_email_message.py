@@ -17,9 +17,15 @@ Usage:
         # Default: encoding='utf-8'
     )
 
-    send_email_message(to='denisr@denisr.com', subject='Example News', text='Please see http://example.com/', **email_config)
+    send_email_message(
+        to='denisr@denisr.com',
+        subject='Example News',
+        text='Please see http://example.com/',
+        html='<html><body>Please see <a href="http://example.com/">example.com</a></body></html>',
+        **email_config
+    )
 
-send_email_message version 0.1.2
+send_email_message version 0.1.3
 Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>
 MIT License, see http://opensource.org/licenses/MIT
 '''
@@ -27,6 +33,7 @@ MIT License, see http://opensource.org/licenses/MIT
 #### import
 
 from email.header import Header
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 
@@ -37,7 +44,7 @@ def encoded(s, encoding):
 
 #### send_email
 
-def send_email_message(to, subject='', text='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, user='admin@localhost', password='', from_name=''):
+def send_email_message(to, subject='', text='', html='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, user='admin@localhost', password='', from_name=''):
 
     SMTP = smtplib.SMTP_SSL if ssl else smtplib.SMTP
     smtp = SMTP(host, port)
@@ -52,10 +59,17 @@ def send_email_message(to, subject='', text='', encoding='utf-8', host='localhos
     if from_name:
         user = '{from_name} <{user}>'.format(from_name=encoded(from_name, encoding), user=user)
 
-    msg = MIMEText(encoded(text, encoding), 'plain', encoding)
+    msg = MIMEMultipart('alternative')
     msg['From'] = user
     msg['To'] = encoded(to, encoding)
     msg['Subject'] = Header(encoded(subject, encoding), encoding)
+
+    for body, subtype in (
+        (text, 'plain'),
+        (html, 'html'),
+    ):
+        if body:
+            msg.attach(MIMEText(encoded(body, encoding), subtype, encoding))
 
     smtp.sendmail(user, to, msg.as_string())
 
