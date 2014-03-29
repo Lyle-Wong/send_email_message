@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='send_email_message',
-    version='0.1.3',
+    version='0.1.4',
     description='Very simple and unicode friendly way to send email message from Python code.',
     long_description='''
 Usage::
@@ -27,6 +27,10 @@ Usage::
         html='<html><body>Please see <a href="http://example.com/">example.com</a></body></html>',
         **email_config
     )
+
+Rare usage::
+
+    login_plain=True, # Some servers are OK with TLS, but require "LOGIN PLAIN" auth inside encrypted session.
 
 ''',
     url='https://github.com/denis-ryzhkov/send_email_message',

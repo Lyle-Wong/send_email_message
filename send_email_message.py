@@ -25,7 +25,11 @@ Usage:
         **email_config
     )
 
-send_email_message version 0.1.3
+Rare usage:
+
+    login_plain=True, # Some servers are OK with TLS, but require "LOGIN PLAIN" auth inside encrypted session.
+
+send_email_message version 0.1.4
 Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>
 MIT License, see http://opensource.org/licenses/MIT
 '''
@@ -44,13 +48,17 @@ def encoded(s, encoding):
 
 #### send_email
 
-def send_email_message(to, subject='', text='', html='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, user='admin@localhost', password='', from_name=''):
+def send_email_message(to, subject='', text='', html='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, login_plain=False, user='admin@localhost', password='', from_name=''):
 
     SMTP = smtplib.SMTP_SSL if ssl else smtplib.SMTP
     smtp = SMTP(host, port)
     #smtp.set_debuglevel(True)
     if not ssl and tls:
         smtp.starttls()
+
+    if login_plain:
+        smtp.ehlo()
+        smtp.esmtp_features['auth'] = 'LOGIN PLAIN'
 
     if password:
         smtp.login(user, password)

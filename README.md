@@ -11,7 +11,7 @@ Usage:
     email_config = dict(
         host='smtp.gmail.com',
         port=587,
-        tls=True, // Or ssl=True with another port.
+        tls=True, # Or ssl=True with another port.
         user='admin@example.com',
         password='password',
         from_name='Example Site',
@@ -26,6 +26,10 @@ Usage:
         **email_config
     )
 
-send_email_message version 0.1.3  
+Rare usage:
+
+    login_plain=True, # Some servers are OK with TLS, but require "LOGIN PLAIN" auth inside encrypted session.
+
+send_email_message version 0.1.4  
 Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>  
 MIT License, see http://opensource.org/licenses/MIT
