@@ -28,9 +28,10 @@ Usage:
 Rare usage:
 
     login_plain=True, # Some servers are OK with TLS, but require "LOGIN PLAIN" auth inside encrypted session.
+    debug=True, # Enables debug output.
 
-send_email_message version 0.1.4
-Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>
+send_email_message version 0.1.5
+Copyright (C) 2013-2015 by Denis Ryzhkov <denisr@denisr.com>
 MIT License, see http://opensource.org/licenses/MIT
 '''
 
@@ -48,11 +49,14 @@ def encoded(s, encoding):
 
 #### send_email
 
-def send_email_message(to, subject='', text='', html='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, login_plain=False, user='admin@localhost', password='', from_name=''):
+def send_email_message(to, subject='', text='', html='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, login_plain=False, user='admin@localhost', password='', from_name='', debug=False):
 
     SMTP = smtplib.SMTP_SSL if ssl else smtplib.SMTP
     smtp = SMTP(host, port)
-    #smtp.set_debuglevel(True)
+
+    if debug:
+        smtp.set_debuglevel(True)
+
     if not ssl and tls:
         smtp.starttls()
 

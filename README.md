@@ -29,7 +29,8 @@ Usage:
 Rare usage:
 
     login_plain=True, # Some servers are OK with TLS, but require "LOGIN PLAIN" auth inside encrypted session.
+    debug=True, # Enables debug output.
 
-send_email_message version 0.1.4  
-Copyright (C) 2013 by Denis Ryzhkov <denisr@denisr.com>  
+send_email_message version 0.1.5  
+Copyright (C) 2013-2015 by Denis Ryzhkov <denisr@denisr.com>  
 MIT License, see http://opensource.org/licenses/MIT
