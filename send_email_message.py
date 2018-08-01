@@ -37,6 +37,7 @@ MIT License, see http://opensource.org/licenses/MIT
 
 #### import
 
+import sys
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -45,7 +46,7 @@ import smtplib
 #### encoded
 
 def encoded(s, encoding):
-    return s.encode(encoding) if isinstance(s, unicode) else s
+    return s.encode(encoding) if sys.version_info.major==2 and isinstance(s, unicode) else s
 
 #### send_email
 
