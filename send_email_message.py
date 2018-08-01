@@ -50,7 +50,7 @@ def encoded(s, encoding):
 
 #### send_email
 
-def send_email_message(to, subject='', text='', html='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, login_plain=False, user='admin@localhost', password='', from_name='', debug=False):
+def send_email_message(to, cc='', subject='', text='', html='', encoding='utf-8', host='localhost', port=25, ssl=False, tls=False, login_plain=False, user='admin@localhost', password='', from_name='', debug=False):
 
     SMTP = smtplib.SMTP_SSL if ssl else smtplib.SMTP
     smtp = SMTP(host, port)
@@ -75,6 +75,7 @@ def send_email_message(to, subject='', text='', html='', encoding='utf-8', host=
     msg = MIMEMultipart('alternative')
     msg['From'] = user
     msg['To'] = encoded(to, encoding)
+    msg['Cc'] = encoded(cc, encoding)
     msg['Subject'] = Header(encoded(subject, encoding), encoding)
 
     for body, subtype in (
@@ -84,6 +85,6 @@ def send_email_message(to, subject='', text='', html='', encoding='utf-8', host=
         if body:
             msg.attach(MIMEText(encoded(body, encoding), subtype, encoding))
 
-    smtp.sendmail(user, to, msg.as_string())
+    smtp.sendmail(user, [to, cc], msg.as_string())
 
     smtp.quit()
